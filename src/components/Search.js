@@ -1,13 +1,15 @@
 import React, { useContext, useState } from 'react'
-import { mockSearchResults } from '../constants/mock'
-// import { HiOutlineX, SearchIcon } from '@heroicons/react/solid'
+// import { mockSearchResults } from '../constants/mock'
 import { XMarkIcon, MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 import SearchResults from './SearchResults'
 import ThemeContext from '../context/ThemeContext'
 
+import { searchSymbol } from '../api/stock-api'
+
 const Search = () => {
   const [input, setInput] = useState('')
-  const [bestMatches, setBestMatches] = useState(mockSearchResults.result)
+  // const [bestMatches, setBestMatches] = useState(mockSearchResults.result)
+  const [bestMatches, setBestMatches] = useState([])
 
   const { darkMode } = useContext(ThemeContext)
 
@@ -16,8 +18,17 @@ const Search = () => {
     setBestMatches([])
   }
 
-  const updateBestMatches = () => {
-    setBestMatches(mockSearchResults.result)
+  const updateBestMatches = async () => {
+    try {
+      if (input) {
+        const searchResults = await searchSymbol(input)
+        const result = searchResults.result
+        setBestMatches(result)
+      }
+    } catch (error) {
+      setBestMatches([])
+      console.log(error)
+    }
   }
 
   return (
@@ -36,7 +47,7 @@ const Search = () => {
         onChange={(event) => {
           setInput(event.target.value)
         }}
-        onKeyPress={(event) => {
+        handleKeyPress={(event) => {
           if (event.key === 'Enter') {
             updateBestMatches()
           }

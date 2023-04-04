@@ -5,6 +5,7 @@ import { convertUnixTimestampToDate } from '../helpers/date-helper'
 import Card from './Card'
 import ChartFilter from './ChartFilter'
 import { chartConfig } from '../constants/config'
+
 import {
   AreaChart,
   ResponsiveContainer,

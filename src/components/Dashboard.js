@@ -5,6 +5,7 @@ import Details from './Details'
 import Header from './Header'
 import Overview from './Overview'
 import Chart from './Chart'
+import Chartg from './Chartg'
 import ThemeContext from '../context/ThemeContext'
 
 const Dashboard = () => {
@@ -20,7 +21,7 @@ const Dashboard = () => {
         <Header name={mockCompanyDetails.name} />
       </div>
       <div className='md:col-span-2 row-span-4'>
-        <Chart />
+        <Chartg />
       </div>
       <div>
         <Overview
