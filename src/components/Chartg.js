@@ -1,19 +1,16 @@
 import { useState, useEffect, useContext } from 'react'
 import React from 'react'
-import { mockHistoricalData } from '../constants/mock'
-import { convertUnixTimestampToDate } from '../helpers/date-helper'
 import Card from './Card'
 import ChartFilter from './ChartFilter'
 import { chartConfig } from '../constants/config'
 import myFinance from '../constants/bar.json'
+
 import {
-  AreaChart,
   ComposedChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
-  Area,
   Label,
   Legend,
   CartesianGrid,
@@ -23,7 +20,6 @@ import {
 import ThemeContext from '../context/ThemeContext'
 
 const Chartg = () => {
-  const [data, setData] = useState(mockHistoricalData)
   const [mainData, setMainData] = useState(myFinance)
   const [filter, setFilter] = useState('1W')
   const { darkMode } = useContext(ThemeContext)
@@ -31,15 +27,6 @@ const Chartg = () => {
   useEffect(() => {
     fetchDate()
   }, [])
-
-  const formatData = () => {
-    return data.c.map((item, index) => {
-      return {
-        value: item.toFixed(2),
-        date: convertUnixTimestampToDate(data.t[index]),
-      }
-    })
-  }
 
   const fetchDate = () => {
     function processMyFinance(myFinance) {
@@ -112,9 +99,25 @@ const Chartg = () => {
             interval={0}
             stroke='#312e81'
           ></XAxis>
-          <YAxis yAxisId={1} orientation='right' />
+          <YAxis
+            yAxisId={1}
+            orientation='right'
+            tickFormatter={(value) => {
+              const valueInThousands = value / 1000
+              const currencyFormatter = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+              })
+              return currencyFormatter.format(valueInThousands) + 'K'
+            }}
+          />
           <Tooltip
             formatter={(value, name) => {
+              if (value === 0) {
+                return null
+              }
               const currencyFormatter = new Intl.NumberFormat('en-US', {
                 style: 'currency',
                 currency: 'USD',
@@ -137,13 +140,7 @@ const Chartg = () => {
             stroke='rgb(199 210 254)'
             strokeDasharray='5 5'
           />
-          <Bar
-            yAxisId={1}
-            dataKey='Actuals'
-            barSize={80}
-            label={{ fill: 'white', fontSize: 12 }}
-            fill='#312e81'
-          />
+          <Bar yAxisId={1} dataKey='Actuals' barSize={80} fill='#312e81'></Bar>
           <Line
             yAxisId={1}
             strokeWidth={2}
