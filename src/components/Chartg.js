@@ -42,7 +42,7 @@ const Chartg = () => {
 
   return (
     <Card>
-      <ul className='flex absolute top-2 right-2 z=40'>
+      {/* <ul className='flex absolute top-2 right-2 z=40'>
         {Object.keys(chartConfig).map((item) => {
           return (
             <li key={item}>
@@ -56,13 +56,13 @@ const Chartg = () => {
             </li>
           )
         })}
-      </ul>
+      </ul> */}
       <ResponsiveContainer>
         <ComposedChart
           width={1600}
           height={800}
           data={mainData}
-          margin={{ top: 55, right: 10, left: 10, bottom: 25 }}
+          margin={{ top: 25, right: 10, left: 10, bottom: 25 }}
         >
           <XAxis
             dataKey='myMonth'

@@ -20,7 +20,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     let overviewg = summedDataSummary.filter((item) => item.Opal === opalFilter)
-
+    console.log(overviewg)
     setOverview(overviewg)
   }, [opalFilter])
 
