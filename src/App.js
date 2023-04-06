@@ -7,11 +7,11 @@ import ThemeContext from './context/ThemeContext'
 
 function App() {
   const [darkMode, setDarkMode] = useState(false)
-  const [stockSymbol, setStockSymbol] = useState('FB')
+  const [opalFilter, setOpalFilter] = useState('0304701 Boyce Estate')
 
   return (
     <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
-      <StockContext.Provider value={{ stockSymbol, setStockSymbol }}>
+      <StockContext.Provider value={{ opalFilter, setOpalFilter }}>
         <Dashboard />
       </StockContext.Provider>
     </ThemeContext.Provider>

@@ -1,8 +1,10 @@
 import React, { useContext } from 'react'
 import ThemeContext from '../context/ThemeContext'
+import StockContext from '../context/StockContext'
 
 const SearchResults = ({ results }) => {
   const { darkMode } = useContext(ThemeContext)
+  const { setOpalFilter } = useContext(StockContext)
 
   return (
     <ul
@@ -19,6 +21,9 @@ const SearchResults = ({ results }) => {
             className={`cursor-pointer p-4 flex items-center justify-between rounded-md ${
               darkMode ? 'hover:bg-indigo-600' : 'hover:bg-indigo-200 : '
             } `}
+            onClick={() => {
+              setOpalFilter(item.symbol)
+            }}
           >
             <span>{item.symbol}</span>
             <span>{item.description}</span>

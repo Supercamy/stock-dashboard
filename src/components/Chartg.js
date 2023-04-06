@@ -4,6 +4,9 @@ import Card from './Card'
 import ChartFilter from './ChartFilter'
 import { chartConfig } from '../constants/config'
 import myFinance from '../constants/bar.json'
+import { myFinanceGG } from '../constants/myDataConstant'
+
+import dataSummary from '../constants/summarytable.json'
 
 import {
   ComposedChart,
@@ -12,6 +15,7 @@ import {
   XAxis,
   YAxis,
   Label,
+  LabelList,
   Legend,
   CartesianGrid,
   Bar,
@@ -20,7 +24,7 @@ import {
 import ThemeContext from '../context/ThemeContext'
 
 const Chartg = () => {
-  const [mainData, setMainData] = useState(myFinance)
+  const [mainData, setMainData] = useState(myFinanceGG)
   const [filter, setFilter] = useState('1W')
   const { darkMode } = useContext(ThemeContext)
 
@@ -29,44 +33,8 @@ const Chartg = () => {
   }, [])
 
   const fetchDate = () => {
-    function processMyFinance(myFinance) {
-      const monthNames = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec',
-      ]
-
-      return myFinance
-        .filter((item) => item.Opal === '0304701 Boyce Estate')
-        .map((item) => {
-          const cumBudget = parseFloat(item.cumBudget.toFixed(0))
-          const cumActual = parseFloat(item.cumActual.toFixed(0))
-          const { Opal, Month, ...rest } = item
-          return {
-            Opal,
-            Month,
-            myMonth: monthNames[Month - 1],
-            Actuals: cumActual,
-            Budget: cumBudget,
-            ...rest,
-          }
-        })
-    }
-
-    let myFinanceBoyce = processMyFinance(myFinance)
-
-    console.log(myFinanceBoyce)
-
-    setMainData(myFinanceBoyce)
+    // let myFinanceBoyce = myFinanceGG
+    // setMainData(myFinanceBoyce)
   }
 
   return (
@@ -97,7 +65,7 @@ const Chartg = () => {
             dataKey='myMonth'
             sclaeToFit='true'
             interval={0}
-            stroke='#312e81'
+            // stroke={darkMode ? 'text-gray-900' : 'text-gray-900'}
           ></XAxis>
           <YAxis
             yAxisId={1}
@@ -140,13 +108,24 @@ const Chartg = () => {
             stroke='rgb(199 210 254)'
             strokeDasharray='5 5'
           />
-          <Bar yAxisId={1} dataKey='Actuals' barSize={80} fill='#312e81'></Bar>
+          <Bar
+            yAxisId={1}
+            dataKey='Actuals'
+            barSize={80}
+            fill={darkMode ? '#3c389e' : '#312e81'}
+            // fill={darkMode ? '##BB86FC' : '#6200EF'}
+            // label={CustomizedLabel}
+          >
+            {/* <LabelList dataKey='Actuals' /> */}
+          </Bar>
+
           <Line
             yAxisId={1}
             strokeWidth={2}
             type='monotone'
             dataKey='Budget'
-            stroke='#ff0000'
+            stroke={darkMode ? '#b30000' : '#ff0000'}
+            // stroke='#ff0000'
             activeDot={{ r: 6 }}
           />
         </ComposedChart>

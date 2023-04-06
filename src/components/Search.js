@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react'
 import { XMarkIcon, MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 import SearchResults from './SearchResults'
 import ThemeContext from '../context/ThemeContext'
+import StockContext from '../context/StockContext'
 
 import { searchSymbol } from '../api/stock-api'
 
@@ -31,6 +32,12 @@ const Search = () => {
     }
   }
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      updateBestMatches()
+    }
+  }
+
   return (
     <div
       className={`flex items-center my-4 border-2 rounded-md relative z-50 w-96  ${
@@ -47,11 +54,7 @@ const Search = () => {
         onChange={(event) => {
           setInput(event.target.value)
         }}
-        handleKeyPress={(event) => {
-          if (event.key === 'Enter') {
-            updateBestMatches()
-          }
-        }}
+        onKeyDown={handleKeyDown}
       />
       {input && (
         <button onClick={clear} className='m-1'>
