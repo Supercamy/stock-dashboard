@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import ThemeContext from '../context/ThemeContext'
 import StockContext from '../context/StockContext'
 
-const SearchResults = ({ results }) => {
+const SearchResults = ({ results, onItemClick }) => {
   const { darkMode } = useContext(ThemeContext)
   const { setOpalFilter } = useContext(StockContext)
 
@@ -22,11 +22,10 @@ const SearchResults = ({ results }) => {
               darkMode ? 'hover:bg-indigo-600' : 'hover:bg-indigo-200 : '
             } `}
             onClick={() => {
-              setOpalFilter(item.symbol)
+              onItemClick(item.Opal)
             }}
           >
-            <span>{item.symbol}</span>
-            <span>{item.description}</span>
+            <span>{item.Opal}</span>
           </li>
         )
       })}

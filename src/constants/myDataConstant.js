@@ -40,6 +40,7 @@ function sumByOpal(data) {
   const opalSummary = data.reduce((acc, item) => {
     if (!acc[item.Opal]) {
       acc[item.Opal] = {
+        Opal: item.Opal,
         BudgetSum: 0,
         ExpenseSum: 0,
         Remain: 0,
@@ -53,7 +54,7 @@ function sumByOpal(data) {
     return acc
   }, {})
 
-  return opalSummary
+  return Object.values(opalSummary)
 }
 
-export const summedDataSummary = sumByOpal(dataSummary)
+export let summedDataSummary = sumByOpal(dataSummary)

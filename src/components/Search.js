@@ -1,16 +1,15 @@
 import React, { useContext, useState } from 'react'
-// import { mockSearchResults } from '../constants/mock'
 import { XMarkIcon, MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 import SearchResults from './SearchResults'
 import ThemeContext from '../context/ThemeContext'
 import StockContext from '../context/StockContext'
-
-import { searchSymbol } from '../api/stock-api'
+import { summedDataSummary } from '../constants/myDataConstant'
 
 const Search = () => {
+  const { setOpalFilter } = useContext(StockContext)
   const [input, setInput] = useState('')
-  // const [bestMatches, setBestMatches] = useState(mockSearchResults.result)
   const [bestMatches, setBestMatches] = useState([])
+  const [showResults, setShowResults] = useState(false)
 
   const { darkMode } = useContext(ThemeContext)
 
@@ -19,12 +18,20 @@ const Search = () => {
     setBestMatches([])
   }
 
+  const handleItemClick = (opal) => {
+    setOpalFilter(opal)
+    setShowResults(false)
+    setInput('')
+  }
+
   const updateBestMatches = async () => {
     try {
       if (input) {
-        const searchResults = await searchSymbol(input)
-        const result = searchResults.result
-        setBestMatches(result)
+        const filteredOpals = summedDataSummary.filter((item) =>
+          item.Opal.toLowerCase().includes(input.toLowerCase())
+        )
+
+        setBestMatches(filteredOpals)
       }
     } catch (error) {
       setBestMatches([])
@@ -68,7 +75,7 @@ const Search = () => {
         <MagnifyingGlassIcon className='h-4 w-4 fill-gray-200'></MagnifyingGlassIcon>
       </button>
       {input && bestMatches.length > 0 ? (
-        <SearchResults results={bestMatches} />
+        <SearchResults results={bestMatches} onItemClick={handleItemClick} />
       ) : null}
     </div>
   )
