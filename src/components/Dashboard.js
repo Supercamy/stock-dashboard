@@ -16,14 +16,16 @@ const Dashboard = () => {
   const { opalFilter } = useContext(StockContext)
 
   // const [opalDetails, setOpalDetails] = useState({})
-  const [overvieww, setOverview] = useState('Gordon')
+  const [overvieww, setOverview] = useState([{ Opal: 'Gordon', BudgetSum: 0 }])
 
   useEffect(() => {
     let overviewg = summedDataSummary.filter((item) => item.Opal === opalFilter)
-    // overviewg = overviewg[0].Opal.replace(/[0-9]/g, '')
-    // console.log(overviewg)
     setOverview(overviewg)
   }, [opalFilter])
+
+  const removeNumbers = (text) => {
+    return text.replace(/[0-9]/g, '')
+  }
 
   return (
     <div
@@ -39,13 +41,15 @@ const Dashboard = () => {
         <Chartg />
       </div>
       <div>
-        <Overview
-          symbol={overvieww[0].Opal}
-          price={Math.round(overvieww[0].BudgetSum)}
-          change={30}
-          changePercent={10.0}
-          currency={'K'}
-        />
+        {overvieww.length > 0 && (
+          <Overview
+            symbol={removeNumbers(overvieww[0].Opal)}
+            price={Math.round(overvieww[0].BudgetSum)}
+            change={30}
+            changePercent={10.0}
+            currency={'K'}
+          />
+        )}
       </div>
       <div className='row-span-2 xl:row-span-3'>
         <Details details={mockCompanyDetails} />
