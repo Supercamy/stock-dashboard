@@ -9,16 +9,19 @@ import Chartg from './Chartg'
 import ThemeContext from '../context/ThemeContext'
 import dataSummary from '../constants/summarytable.json'
 import StockContext from '../context/StockContext'
+import { summedDataSummary } from '../constants/myDataConstant'
 
 const Dashboard = () => {
   const { darkMode } = useContext(ThemeContext)
   const { opalFilter } = useContext(StockContext)
 
   // const [opalDetails, setOpalDetails] = useState({})
+  const [overvieww, setOverview] = useState('Gordon')
 
   useEffect(() => {
-    console.log('opalFilter is called')
-    console.log(opalFilter)
+    let overviewg = summedDataSummary.filter((item) => item.Opal === opalFilter)
+
+    setOverview(overviewg)
   }, [opalFilter])
 
   return (
@@ -37,11 +40,11 @@ const Dashboard = () => {
       </div>
       <div>
         <Overview
-          symbol={mockCompanyDetails.ticker}
-          price={300}
+          symbol={overvieww[0].Opal}
+          price={Math.round(overvieww[0].BudgetSum)}
           change={30}
           changePercent={10.0}
-          currency={'USD'}
+          currency={'K'}
         />
       </div>
       <div className='row-span-2 xl:row-span-3'>

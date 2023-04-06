@@ -49,8 +49,8 @@ function sumByOpal(data) {
       }
     }
 
-    acc[item.Opal].BudgetSum += item.BudgetSum
-    acc[item.Opal].ExpenseSum += item.ExpenseSum
+    acc[item.Opal].BudgetSum += item.BudgetSum / 1000
+    acc[item.Opal].ExpenseSum += item.ExpenseSum / 1000
     acc[item.Opal].Remain += item.Remain
 
     return acc
@@ -58,5 +58,24 @@ function sumByOpal(data) {
 
   return Object.values(opalSummary)
 }
+// function sumByOpal(data) {
+//   const opalSummary = data.reduce((acc, item) => {
+//     if (!acc[item.Opal]) {
+//       acc[item.Opal] = {
+//         Opal: item.Opal,
+//         BudgetSum: 0,
+//         ExpenseSum: 0,
+//         Remain: 0,
+//       }
+//     }
 
+//     acc[item.Opal].BudgetSum = Math.round((acc[item.Opal].BudgetSum + item.BudgetSum) / 1000); // Divide by 1000 to convert to thousands (K) and round to 0 decimal places
+//     acc[item.Opal].ExpenseSum = Math.round((acc[item.Opal].ExpenseSum + item.ExpenseSum) / 1000); // Divide by 1000 to convert to thousands (K) and round to 0 decimal places
+//     acc[item.Opal].Remain = Math.round(acc[item.Opal].Remain + item.Remain); // No need to convert Remain to K if it's not required, but round to 0 decimal places
+
+//     return acc;
+//   }, {});
+
+//   return Object.values(opalSummary);
+// }
 export let summedDataSummary = sumByOpal(dataSummary)
