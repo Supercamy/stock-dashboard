@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
 
 import Dashboard from './components/Dashboard'
 import StockContext from './context/StockContext'
 import ThemeContext from './context/ThemeContext'
+import Navbar from './components/Navbar'
 
 function App() {
   const [darkMode, setDarkMode] = useState(false)
@@ -12,7 +14,12 @@ function App() {
   return (
     <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
       <StockContext.Provider value={{ opalFilter, setOpalFilter }}>
-        <Dashboard />
+        <Router>
+          <Navbar />
+          <Routes>
+            <Route path='/' element={<Dashboard />} />
+          </Routes>
+        </Router>
       </StockContext.Provider>
     </ThemeContext.Provider>
   )

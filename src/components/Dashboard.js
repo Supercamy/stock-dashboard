@@ -20,20 +20,20 @@ const Dashboard = () => {
 
   useEffect(() => {
     let overviewg = summedDataSummary.filter((item) => item.Opal === opalFilter)
-    console.log(overviewg)
+    // overviewg = overviewg[0].Opal.replace(/[0-9]/g, '')
+    // console.log(overviewg)
     setOverview(overviewg)
   }, [opalFilter])
 
   return (
     <div
-      className={`h-screen grid grid-cols md:grid-cols-2 xl:grid-cols-3 grid-rows-8 md:grid-rows-7 xl:grid-rows-5 auto-rows-fr gap-6 p-10 font-quicksand  ${
-        darkMode ? 'bg-gray-900 text-gray-300' : 'bg-neutral-100'
+      className={`h-screen grid grid-cols md:grid-cols-2 xl:grid-cols-3 grid-rows-8 md:grid-rows-7 xl:grid-rows-5 auto-rows-fr gap-4 p-4 font-quicksand  ${
+        darkMode ? 'bg-gray-900 text-gray-300' : 'bg-neutral-50'
       }`}
     >
       {' '}
       <div className='col-span-1 md:col-span-2 xl:col-span-3 row-span-1 flex justify-start items-center'>
         <Header name={opalFilter} />
-        {/* <Header name={mockCompanyDetails.name} /> */}
       </div>
       <div className='md:col-span-2 row-span-4'>
         <Chartg />
