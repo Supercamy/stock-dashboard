@@ -5,7 +5,7 @@ const Overview = ({ symbol, price, change, changePercent, currency }) => {
   return (
     <Card>
       <span className='absolute text-center top-4 text-neutral-400 text-lg xl:text-xl 2xl:text-2xl '>
-        {symbol.replace(/[0-9]/g, '')}
+        {symbol}
       </span>
       <div className='w-full h-full flex items-center justify-around'>
         <span className='text-2xl xl:text-4xl 2xl:text-5xl flex items-center'>
