@@ -17,21 +17,23 @@ function processMyFinance(myFinanceG) {
     'Dec',
   ]
 
-  return myFinanceG
-    .filter((item) => item.Opal === '0304701 Boyce Estate')
-    .map((item) => {
-      const cumBudget = parseFloat(item.cumBudget.toFixed(0))
-      const cumActual = parseFloat(item.cumActual.toFixed(0))
-      const { Opal, Month, ...rest } = item
-      return {
-        Opal,
-        Month,
-        myMonth: monthNames[Month - 1],
-        Actuals: cumActual,
-        Budget: cumBudget,
-        ...rest,
-      }
-    })
+  return (
+    myFinanceG
+      // .filter((item) => item.Opal === '0304701 Boyce Estate')
+      .map((item) => {
+        const cumBudget = parseFloat(item.cumBudget.toFixed(0))
+        const cumActual = parseFloat(item.cumActual.toFixed(0))
+        const { Opal, Month, ...rest } = item
+        return {
+          Opal,
+          Month,
+          myMonth: monthNames[Month - 1],
+          Actuals: cumActual,
+          Budget: cumBudget,
+          ...rest,
+        }
+      })
+  )
 }
 
 export const myFinanceGG = processMyFinance(myFinanceG)

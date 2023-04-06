@@ -5,6 +5,7 @@ import ChartFilter from './ChartFilter'
 import { chartConfig } from '../constants/config'
 import myFinance from '../constants/bar.json'
 import { myFinanceGG } from '../constants/myDataConstant'
+import StockContext from '../context/StockContext'
 
 import dataSummary from '../constants/summarytable.json'
 
@@ -27,14 +28,16 @@ const Chartg = () => {
   const [mainData, setMainData] = useState(myFinanceGG)
   const [filter, setFilter] = useState('1W')
   const { darkMode } = useContext(ThemeContext)
+  const { opalFilter } = useContext(StockContext)
 
   useEffect(() => {
     fetchDate()
-  }, [])
+  }, [opalFilter])
 
   const fetchDate = () => {
+    let myFinanceFilter = myFinanceGG.filter((item) => item.Opal === opalFilter)
     // let myFinanceBoyce = myFinanceGG
-    // setMainData(myFinanceBoyce)
+    setMainData(myFinanceFilter)
   }
 
   return (
