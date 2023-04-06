@@ -57,7 +57,7 @@ const Search = () => {
         className={`w-full px-4 py-2 focus:outline-none rounded-md ${
           darkMode ? 'bg-gray-900' : null
         }`}
-        placeholder='Search stock...'
+        placeholder='Search opal...'
         onChange={(event) => {
           setInput(event.target.value)
         }}
