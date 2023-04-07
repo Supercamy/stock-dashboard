@@ -26,7 +26,30 @@ const Details = ({ details }) => {
           darkMode ? 'divide-gray-800' : null
         }`}
       >
-        {Object.keys(detailsList).map((item) => {
+        <li className='flex-1 flex justify-between items-center'>
+          <span>Name</span>
+          <span>Space Management</span>
+        </li>{' '}
+        <li className='flex-1 flex justify-between items-center'>
+          <span>Budget</span>
+          <span>$713,000</span>
+        </li>
+        <li className='flex-1 flex justify-between items-center'>
+          <span>Salary</span>
+          <span>35% - $317,000</span>
+        </li>
+        <li className='flex-1 flex justify-between items-center'>
+          <span>Non Salary</span>
+          <span>65% - $416,000</span>
+        </li>
+        <li className='flex-1 flex justify-between items-center'>
+          <span>
+            This account is the general operating for the Space Mangagement
+            team. The account covers salary, space management projects and cost
+            for providing space auditing
+          </span>
+        </li>
+        {/* {Object.keys(detailsList).map((item) => {
           return (
             <li key={item} className='flex-1 flex justify-between items-center'>
               <span>{detailsList[item]}</span>
@@ -38,7 +61,7 @@ const Details = ({ details }) => {
               </span>
             </li>
           )
-        })}
+        })} */}
       </ul>
     </Card>
   )
